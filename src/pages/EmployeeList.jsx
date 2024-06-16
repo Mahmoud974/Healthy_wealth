@@ -5,6 +5,7 @@ import localStorageService from '../services/localstorageEmployee';
 import { getColumnValue } from '../modules/modules';
 
 const Table = lazy(() => import('../composants/Table'));
+
 const EmployeeList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const entriesPerPage = 10;
@@ -23,15 +24,18 @@ const EmployeeList = () => {
       setFormData(formDataWithAbbrev);
     }
   }, []);
+
   const formDataWithNames = formData.map((data) => ({
     ...data,
     firstName: data.firstname,
     lastName: data.lastname,
   }));
+
   const mergedEmployeeList = [...listEmployee, ...formDataWithNames];
   const totalPages = Math.ceil(mergedEmployeeList.length / entriesPerPage);
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+
   const sortData = (column) => {
     if (sortByColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -55,8 +59,10 @@ const EmployeeList = () => {
       return sortDirection === "asc" ? comparison : comparison * -1;
     });
   };
+
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
+    setCurrentPage(1); // Reset to the first page on search
   };
 
   const filteredEntries = mergedEmployeeList.filter((entry) => {
@@ -68,12 +74,15 @@ const EmployeeList = () => {
   });
 
   const sortedEntries = sortEntries([...filteredEntries]);
-  const currentEntries = sortedEntries.slice(indexOfFirstEntry, indexOfLastEntry);
+  const totalEmployees = filteredEntries.length;
+
+  // Determine the entries to display based on whether search is active
+  const displayEntries = searchValue ? sortedEntries : sortedEntries.slice(indexOfFirstEntry, indexOfLastEntry);
+
   const goToFirstPage = () => setCurrentPage(1);
   const goToLastPage = () => setCurrentPage(totalPages);
   const nextPage = () => setCurrentPage(currentPage === totalPages ? currentPage : currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1);
-  const totalEmployees = filteredEntries.length;
 
   return (
     <div>
@@ -90,38 +99,40 @@ const EmployeeList = () => {
       </div>
       <div className="container mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
         <Suspense fallback={<div>Loading...</div>}>
-          <Table sortData={sortData} sortedEntries={currentEntries} />
+          <Table sortData={sortData} sortedEntries={displayEntries} />
         </Suspense>
       </div>
-      <div className="container mx-auto my-6 flex justify-between">
-        <p>{currentPage} sur {totalPages}</p>
-        <div className="space-x-6">
-          <button
-            className="border-tropical_light text-tropical border px-4 rounded-md"
-            onClick={goToFirstPage}
-          >
-            Première
-          </button>
-          <button
-            className="border-tropical_light text-tropical border px-4 rounded-md"
-            onClick={prevPage}
-          >
-            Précédente
-          </button>
-          <button
-            className="border-tropical_light text-tropical border px-4 rounded-md"
-            onClick={nextPage}
-          >
-            Suivante
-          </button>
-          <button
-            className="border-tropical_light text-tropical border px-4 rounded-md"
-            onClick={goToLastPage}
-          >
-            Dernière
-          </button>
+      {!searchValue && (
+        <div className="container mx-auto my-6 flex justify-between">
+          <p>{currentPage} sur {totalPages}</p>
+          <div className="space-x-6">
+            <button
+              className="border-tropical_light text-tropical border px-4 rounded-md"
+              onClick={goToFirstPage}
+            >
+              Première
+            </button>
+            <button
+              className="border-tropical_light text-tropical border px-4 rounded-md"
+              onClick={prevPage}
+            >
+              Précédente
+            </button>
+            <button
+              className="border-tropical_light text-tropical border px-4 rounded-md"
+              onClick={nextPage}
+            >
+              Suivante
+            </button>
+            <button
+              className="border-tropical_light text-tropical border px-4 rounded-md"
+              onClick={goToLastPage}
+            >
+              Dernière
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

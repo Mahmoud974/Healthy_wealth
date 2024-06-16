@@ -28,16 +28,6 @@ const FormEmployee = ({ setModalMessage, setIsModalOpen }) => {
     setIsModalOpen(true);
   };
 
-  const validateNameFields = (data) => {
-    const isValidFirstName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.firstname);
-    const isValidLastName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.lastname);
-    if (!isValidFirstName || !isValidLastName) {
-      openModal("Le prénom et le nom doivent avoir au moins deux lettres et ne doivent pas contenir de chiffres ni de symboles. ❌");
-      return false;
-    }
-    return true;
-  };
-
   const checkRequiredFields = (data) => {
     let valid = true;
     ["firstname", "lastname", "dateOfBirth", "startDate", "street", "city", "zipCode", "states", "department"].forEach((field) => {
@@ -55,13 +45,32 @@ const FormEmployee = ({ setModalMessage, setIsModalOpen }) => {
   };
 
   const onSubmit = async (data) => {
-    if (!validateNameFields(data)) return;
+    const isValidFirstName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.firstname);
+    const isValidLastName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.lastname);
+
+    if (!isValidFirstName) {
+      setError("firstname", {
+        type: "manual",
+        message: "Pas de chiffres ni de symboles, 2 lettres minimums",
+      });
+      return;
+    }
+
+    if (!isValidLastName) {
+      setError("lastname", {
+        type: "manual",
+        message: "Pas de chiffres ni de symboles, 2 lettres minimums",
+      });
+      return;
+    }
 
     const selectedState = states.find((state) => state.name === data.states);
     if (selectedState) {
       data.stateAbbreviation = selectedState.abbreviation;
     }
+    
     if (!checkRequiredFields(data)) return;
+    
     const id = lastId + 1;
     data.id = id;
     formatDates(data);
@@ -70,6 +79,7 @@ const FormEmployee = ({ setModalMessage, setIsModalOpen }) => {
       openModal("L'employé doit avoir au moins 18 ans pour être enregistré. ❌");
       return;
     }
+    
     setTab([...tab, data]);
     localStorage.setItem("formData", JSON.stringify([...tab, data]));
     setLastId(id);

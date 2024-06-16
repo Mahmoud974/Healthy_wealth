@@ -10,7 +10,7 @@ const Navbar = () => {
                 </NavLink>
                 <p className="font-bold text-2xl">HRnet </p>
                 <div>
-                    <div className="flex  items-center lg:space-x-5 lg:space-y- space-y-2 flex-col lg:flex-row">  
+                    <div className="flex  items-center lg:space-x-5 lg:space-y-0 space-y-2 flex-col lg:flex-row">  
                         <NavLink to="/" className="flex items-center hover:font-bold hover:text-tropical">
                             <p>Create Employee</p>
                         </NavLink>

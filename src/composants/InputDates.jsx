@@ -35,7 +35,7 @@ const InputDates = ({ methods }) => {
   };
 
   return (
-    <div className="flex lg:flex-row flex-col lg:space-x-5 space-x-0 lg:space-y-0 space-y-10">
+    <div className="flex lg:flex-row flex-col lg:space-x-5 space-x-0">
       <div className="mt-3 flex flex-col relative h-11 w-full min-w-[200px]">
         <Controller
           name="dateOfBirth"
