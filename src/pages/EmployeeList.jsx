@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { listEmployee } from '../data/Employee'; // Assurez-vous que le chemin est correct
 import Navbar from '../composants/Navbar';
 import localStorageService from '../services/localstorageEmployee';
