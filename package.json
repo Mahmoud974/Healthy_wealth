@@ -13,6 +13,7 @@
     "modal-md-reactjs": "^1.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-data-table-component": "^7.6.2",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
     "react-dropdown-select": "^4.11.2",

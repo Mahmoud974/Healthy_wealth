@@ -39,13 +39,7 @@ const Table = ({ sortedEntries }) => {
                 className="px-6 py-3 text-center cursor-pointer"
               >
                 {column.render('Header')}
-                <span>
-                  {column.isSorted
-                    ? column.isSortedDesc
-                      ? ' 🔽'
-                      : ' 🔼'
-                    : ''}
-                </span>
+               
               </th>
             ))}
           </tr>

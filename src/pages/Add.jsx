@@ -5,7 +5,9 @@ const FormEmployee = lazy(() => import('../composants/FormEmployee'));
 const Add = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-
+/**
+ * Fermer le modal
+ */
   const closeModal = () => {
     setIsModalOpen(false);
   };

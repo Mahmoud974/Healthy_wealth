@@ -22,12 +22,19 @@ const FormEmployee = ({ setModalMessage, setIsModalOpen }) => {
       setLastId(parseInt(storedLastId, 10));
     }
   }, []);
-
+/**
+ * Ouvrir le modal
+ * @param {*} message 
+ */
   const openModal = (message) => {
     setModalMessage(message);
     setIsModalOpen(true);
   };
-
+/**
+ * Verifier les conditions d'inputs
+ * @param {*} data 
+ * @returns 
+ */
   const checkRequiredFields = (data) => {
     let valid = true;
     ["firstname", "lastname", "dateOfBirth", "startDate", "street", "city", "zipCode", "states", "department"].forEach((field) => {
@@ -43,7 +50,11 @@ const FormEmployee = ({ setModalMessage, setIsModalOpen }) => {
     });
     return valid;
   };
-
+/**
+ * Soumettre le formulaire
+ * @param {*} data 
+ * @returns 
+ */
   const onSubmit = async (data) => {
     const isValidFirstName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.firstname);
     const isValidLastName = /^[a-zA-ZÀ-ÿ\s]{2,}$/.test(data.lastname);
