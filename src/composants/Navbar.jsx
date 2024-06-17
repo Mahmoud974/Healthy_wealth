@@ -9,8 +9,10 @@ const Navbar = () => {
                     <img 
                         src={Logo} 
                         alt="Logo" 
-                        className="lg:h-12 h-12 lg:my-2 object-contain" 
-                        loading="lazy"  // Ajout de l'attribut loading
+                        className="lg:h-12 h-12 lg:my-2 " 
+                        height="auto"
+                        width="auto"
+                      
                     />
                 </NavLink>
                 <p className="font-bold text-2xl">HRnet</p>

@@ -3,12 +3,12 @@ import { useTable, useSortBy } from 'react-table';
 import PropTypes from 'prop-types';
 
 const employeeList = [
-  { Header: "Id⮃", accessor: "id" },
-  { Header: "FirstName⮃", accessor: "firstName" },
-  { Header: "LastName⮃", accessor: "lastName" },
-  { Header: "Start Date⮃", accessor: "startDate" },
+  { Header: "Id", accessor: "id" },
+  { Header: "FirstName", accessor: "firstName" },
+  { Header: "LastName", accessor: "lastName" },
+  { Header: "Start Date", accessor: "startDate" },
   { Header: "Department", accessor: "department" },
-  { Header: "Date of Birth⮃", accessor: "dateOfBirth" },
+  { Header: "Date of Birth", accessor: "dateOfBirth" },
   { Header: "Street", accessor: "street" },
   { Header: "City", accessor: "city" },
   { Header: "State", accessor: "stateAbbrev" },
